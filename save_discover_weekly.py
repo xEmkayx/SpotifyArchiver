@@ -1,8 +1,10 @@
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 import os
+from dotenv import load_dotenv
 
 scope = 'playlist-modify-public playlist-modify-private'
+load_dotenv()
 
 
 def main():
@@ -29,3 +31,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+    print("Sucessfully ran the save-discover-weekly script.")
