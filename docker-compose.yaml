@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  save-discover-weekly:
+    image: save-discover-weekly
+    container_name: save-discover-weekly
+    environment:
+      - CLIENT_ID=${CLIENT_ID}
+      - CLIENT_SECRET=${CLIENT_SECRET}
+      - REDIRECT_URI=${REDIRECT_URI}
+      - DISCOVER_WEEKLY_ARCHIVE_ID=${DISCOVER_WEEKLY_ARCHIVE_ID}
+      - DISCOVER_WEEKLY_ID=${DISCOVER_WEEKLY_ID}
+    restart: on-failure
+    build:
+      context: .
+      args:
+        SCRIPT_NAME: save_discover_weekly.py
+
+  save-release-radar:
+    image: save-release-radar
+    container_name: save-release-radar
+    environment:
+      - CLIENT_ID=${CLIENT_ID}
+      - CLIENT_SECRET=${CLIENT_SECRET}
+      - REDIRECT_URI=${REDIRECT_URI}
+      - RELEASE_RADAR_ARCHIVE_ID=${RELEASE_RADAR_ARCHIVE_ID}
+      - RELEASE_RADAR_ID=${RELEASE_RADAR_ID}
+    restart: on-failure
+    build:
+      context: .
+      args:
+        SCRIPT_NAME: save_release_radar.py
