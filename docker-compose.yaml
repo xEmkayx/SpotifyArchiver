@@ -3,6 +3,8 @@ services:
   save-discover-weekly:
     image: save-discover-weekly
     container_name: save-discover-weekly
+    stdin_open: true # Equivalent zu `-i` im `docker run`
+    tty: true        # Equivalent zu `-t` im `docker run`
     environment:
       - CLIENT_ID=${CLIENT_ID}
       - CLIENT_SECRET=${CLIENT_SECRET}
@@ -12,12 +14,15 @@ services:
     restart: on-failure
     build:
       context: .
+      dockerfile: Dockerfile
       args:
         SCRIPT_NAME: save_discover_weekly.py
 
   save-release-radar:
     image: save-release-radar
     container_name: save-release-radar
+    stdin_open: true
+    tty: true
     environment:
       - CLIENT_ID=${CLIENT_ID}
       - CLIENT_SECRET=${CLIENT_SECRET}
@@ -27,5 +32,6 @@ services:
     restart: on-failure
     build:
       context: .
+      dockerfile: Dockerfile
       args:
         SCRIPT_NAME: save_release_radar.py
