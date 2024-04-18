@@ -1,19 +1,24 @@
 import spotipy
-from spotipy.oauth2 import SpotifyOAuth
 import os
 from dotenv import load_dotenv
+
+from constants.constants import CACHE_FILE_NAME
+from util.token_util import load_token, refresh_if_needed
 
 scope = 'playlist-modify-public playlist-modify-private'
 load_dotenv()
 
 
 def main():
-    spotify = spotipy.Spotify(auth_manager=SpotifyOAuth(
-        client_id=os.getenv('CLIENT_ID'),
-        client_secret=os.getenv('CLIENT_SECRET'),
-        redirect_uri=os.getenv('REDIRECT_URI'),
-        scope=scope,
-        open_browser=False))
+    token_info = load_token(CACHE_FILE_NAME)
+
+    if not token_info:
+        print('There is no token')
+        return
+
+    token_info = refresh_if_needed(token_info)
+
+    spotify = spotipy.Spotify(auth=token_info['access_token'])
 
     discover_weekly_id = os.getenv('DISCOVER_WEEKLY_ID')
     discover_weekly_archive_id = os.getenv('DISCOVER_WEEKLY_ARCHIVE_ID')
