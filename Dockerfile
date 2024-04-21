@@ -7,9 +7,7 @@ WORKDIR /app
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Kopiere deinen Code ins Arbeitsverzeichnis des Containers
-ARG SCRIPT_NAME=save_discover_weekly.py
+COPY . .
+EXPOSE 8123
 
-COPY ./${SCRIPT_NAME} ./app.py
-
-CMD ["python", "./app.py"]
+CMD ["python", "./webserver.py"]

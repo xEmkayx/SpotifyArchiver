@@ -1,6 +1,7 @@
 import spotipy
 import os
 from dotenv import load_dotenv
+from flask import make_response
 
 from constants.constants import *
 from util.token_util import load_token, refresh_if_needed
@@ -14,7 +15,7 @@ def main(script_type: ScriptType):
 
     if not token_info:
         print('No token')
-        return "There is no (valid) token", 401
+        return make_response("There is no (valid) token", 401)
 
     token_info = refresh_if_needed(token_info)
 
@@ -37,7 +38,7 @@ def main(script_type: ScriptType):
     spotify.playlist_add_items(playlist_id=archive_playlist_id,
                                items=dw_tracks, position=position)
 
-    return "Success", 200
+    return make_response("Success", 200)
 
 
 if __name__ == '__main__':

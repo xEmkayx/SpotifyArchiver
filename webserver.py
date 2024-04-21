@@ -1,6 +1,6 @@
 from flask import Flask, request
 
-import save_playlist
+import archive_playlist
 import util.token_util
 from constants.constants import ScriptType
 
@@ -25,12 +25,16 @@ def callback():
 
 @app.route('/run/release-radar')
 def run_release_radar():
-    return save_playlist.main(ScriptType.RELEASE_RADAR)
+    return archive_playlist.main(ScriptType.RELEASE_RADAR)
 
 
 @app.route('/run/discover-weekly')
-def run_release_radar():
-    return save_playlist.main(ScriptType.DISCOVER_WEEKLY)
+def run_discover_weekly():
+    return archive_playlist.main(ScriptType.DISCOVER_WEEKLY)
+
+# todo:
+# - endpoint to check if token file exists
+# - endpoint to check how long till token expires
 
 
 if __name__ == '__main__':
