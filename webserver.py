@@ -37,5 +37,6 @@ def run_discover_weekly():
 # - endpoint to check how long till token expires
 
 
+# 0.0.0.0 instead of localhost for docker
 if __name__ == '__main__':
-    app.run(host='localhost', port=8123)
+    app.run(host='0.0.0.0', port=8123)
